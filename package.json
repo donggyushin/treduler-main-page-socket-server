@@ -1,0 +1,17 @@
+{
+  "name": "main-page-socket",
+  "version": "1.0.0",
+  "description": "socket server for main page",
+  "main": "index.js",
+  "author": "rontend",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "start": "babel-node src/MainPageSocketServer.js"
+  }
+}

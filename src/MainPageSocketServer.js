@@ -11,14 +11,45 @@ var clients = [];
 
 io.on('connection', function (socket) {
 
+    // 유저가 커넥션을 유지할때
     socket.on('login', function (data) {
         // data will be a object of a user.
-        const userObject = {
-            email: data.email,
-            socket
-        }
-        clients.push(userObject)
+        console.log('user login:', data)
+        socket.email = data.email
+        clients.push(socket)
     })
+
+    // 다른 유저에게 초대장을 보낼때
+    socket.on('send-invitation', function (data) {
+        // data 는 초대장을 받을 user 객체
+        // 초대장을 받을 유저의 email
+        const { email } = data;
+        // 해당 email로 userObject 를 찾는다. 
+        const userSocket = clients.filter(client => client.email === email)[0];
+        // 해당 user 에게 unreadEmailNumbers request 를 요청하도록 메시지를 보낸다. 
+        if (userSocket === null || userSocket === undefined) {
+            return;
+        }
+        console.log('usersocket:', userSocket.id)
+        userSocket.emit('unreadEmailNumbers')
+        // io.to(userSocket.id).emit('unreadEmailNumbers')
+    })
+
+    // 커넥션이 끊켰을때
+    socket.on('forceDisconnect', function () {
+        const newClients = clients.filter(client => client !== socket)
+        clients = newClients
+        console.log('user force disconnected: ', socket.email)
+        socket.disconnect()
+
+
+    })
+    socket.on('disconnect', function () {
+        const newClients = clients.filter(client => client !== socket)
+        clients = newClients
+        console.log('user disconnected: ', socket.email)
+    })
+
 })
 
 server.listen(PORT, function () {

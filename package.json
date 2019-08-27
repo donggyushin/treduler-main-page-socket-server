@@ -9,9 +9,12 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "express": "^4.17.1",
+    "nodemon": "^1.19.1",
     "socket.io": "^2.2.0"
   },
   "scripts": {
-    "start": "babel-node src/MainPageSocketServer.js"
+    "start": "node dist/MainPageSocketServer.js",
+    "dev": "nodemon --exec babel-node src/MainPageSocketServer.js",
+    "build": "babel --presets es2015 -d dist/ src"
   }
 }

@@ -16,7 +16,7 @@ io.on('connection', function (socket) {
     // 유저가 커넥션을 유지할때
     socket.on('login', function (data) {
         // data will be a object of a user.
-        console.log('user login:', data);
+        console.log('user login:', data.email);
         socket.email = data.email;
         clients.push(socket);
     });

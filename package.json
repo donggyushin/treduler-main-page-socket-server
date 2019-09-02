@@ -13,7 +13,7 @@
     "socket.io": "^2.2.0"
   },
   "scripts": {
-    "start": "node dist/MainPageSocketServer.js",
+    "start": "node dist/MainPageSocketServer.js &",
     "dev": "nodemon --exec babel-node src/MainPageSocketServer.js",
     "build": "babel --presets es2015 -d dist/ src"
   }

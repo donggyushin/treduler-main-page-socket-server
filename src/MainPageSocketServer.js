@@ -6,8 +6,8 @@ const credentials = {
     key: privkey,
     cert: fullchain
 }
-var server2 = require('https').createServer(credentials, app)
-var io = require('socket.io')(server2)
+var server2 = require('https').createServer(app)
+var io = require('socket.io')(server)
 
 var PORT = 8080;
 
@@ -59,6 +59,6 @@ io.on('connection', function (socket) {
 
 })
 
-server2.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log(`Socket IO Server listening on port ${PORT}`)
 })

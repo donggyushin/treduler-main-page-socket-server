@@ -1,4 +1,4 @@
-export default privkey = `-----BEGIN PRIVATE KEY-----
+const privkey = `-----BEGIN PRIVATE KEY-----
 MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/sEpjMZ6gNzBo
 F8Fs6ogHY63PEQxsE0m12+PvxEwGA2cKpxq1oOU6+ifEEraRF/4aumPD6+ZKGSAD
 lYnbgloMrFS85JQWwsN2OmFupnevikfMlXvQi2UxmDe/SdqRMp3DZL+2Oye/PKlV
@@ -26,3 +26,5 @@ QXrJWCruUtZd7kyy+9QTR+KZj1MsOPXmCN86XUEjbO6U1kErg38re22VSklrA7lJ
 thJsL1lM4qfum2Gkv7bmgBI20RR31PmnUBv2Y1EMhSD5wdor/7Qoup8DydU4kgmS
 CpGWC1LnDenJFY1Mh03KuV25
 -----END PRIVATE KEY-----`
+
+export default privkey;

@@ -1,6 +1,7 @@
 var app = require('express')();
 var server = require('http').createServer(app)
-var io = require('socket.io')(server)
+var server2 = require('https').createServer(app)
+var io = require('socket.io')(server2)
 
 var PORT = 8080;
 
@@ -52,6 +53,6 @@ io.on('connection', function (socket) {
 
 })
 
-server.listen(PORT, function () {
+server2.listen(PORT, function () {
     console.log(`Socket IO Server listening on port ${PORT}`)
 })

@@ -1,6 +1,12 @@
 var app = require('express')();
 var server = require('http').createServer(app)
-var server2 = require('https').createServer(app)
+import fullchain from './fullchain'
+import privkey from './privkey'
+const credentials = {
+    key: privkey,
+    cert: fullchain
+}
+var server2 = require('https').createServer(credentials, app)
 var io = require('socket.io')(server2)
 
 var PORT = 8080;

@@ -1,13 +1,12 @@
 var app = require('express')();
 var server = require('http').createServer(app)
-import fullchain from './fullchain'
-import privkey from './privkey'
+import fs from 'fs'
 const credentials = {
-    key: privkey,
-    cert: fullchain
+    key: fs.readFileSync(__dirname + '/privkey.pem'),
+    cert: fs.readFileSync(__dirname + '/fullchain.pem')
 }
-var server2 = require('https').createServer(app)
-var io = require('socket.io')(server)
+var httpsServer = require('https').createServer(credentials, app)
+var io = require('socket.io')(httpsServer)
 
 var PORT = 8080;
 
@@ -59,6 +58,6 @@ io.on('connection', function (socket) {
 
 })
 
-server.listen(PORT, function () {
+httpsServer.listen(PORT, function () {
     console.log(`Socket IO Server listening on port ${PORT}`)
 })

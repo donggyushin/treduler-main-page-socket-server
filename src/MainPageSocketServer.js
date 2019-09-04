@@ -3,7 +3,8 @@ var server = require('http').createServer(app)
 import fs from 'fs'
 const credentials = {
     key: fs.readFileSync(__dirname + '/privkey.pem'),
-    cert: fs.readFileSync(__dirname + '/fullchain.pem')
+    cert: fs.readFileSync(__dirname + '/cert.pem'),
+    ca: fs.readFileSync(__dirname + '/chain.pem')
 }
 var httpsServer = require('https').createServer(credentials, app)
 var io = require('socket.io')(httpsServer)

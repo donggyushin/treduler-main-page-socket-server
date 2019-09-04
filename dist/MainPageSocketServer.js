@@ -1,8 +1,20 @@
 'use strict';
 
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var app = require('express')();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+
+var credentials = {
+    key: _fs2.default.readFileSync(__dirname + '/privkey.pem'),
+    cert: _fs2.default.readFileSync(__dirname + '/fullchain.pem')
+};
+var httpsServer = require('https').createServer(credentials, app);
+var io = require('socket.io')(httpsServer);
 
 var PORT = 8080;
 
@@ -58,6 +70,6 @@ io.on('connection', function (socket) {
     });
 });
 
-server.listen(PORT, function () {
+httpsServer.listen(PORT, function () {
     console.log('Socket IO Server listening on port ' + PORT);
 });

@@ -7,14 +7,21 @@ var _fs2 = _interopRequireDefault(_fs);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = require('express')();
-var server = require('http').createServer(app);
 
 var credentials = {
     key: _fs2.default.readFileSync(__dirname + '/privkey.pem'),
-    cert: _fs2.default.readFileSync(__dirname + '/fullchain.pem')
+    cert: _fs2.default.readFileSync(__dirname + '/cert.pem'),
+    ca: _fs2.default.readFileSync(__dirname + '/chain.pem')
 };
-var httpsServer = require('https').createServer(credentials, app);
-var io = require('socket.io')(httpsServer);
+
+var env = process.env.NODE_ENV || 'dev';
+
+var server = require('http').createServer(app);
+if (env === 'production') {
+    server = require('https').createServer(credentials, app);
+}
+
+var io = require('socket.io')(server);
 
 var PORT = 8080;
 
@@ -70,6 +77,6 @@ io.on('connection', function (socket) {
     });
 });
 
-httpsServer.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log('Socket IO Server listening on port ' + PORT);
 });

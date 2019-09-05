@@ -1,13 +1,21 @@
 var app = require('express')();
-var server = require('http').createServer(app)
 import fs from 'fs'
 const credentials = {
     key: fs.readFileSync(__dirname + '/privkey.pem'),
     cert: fs.readFileSync(__dirname + '/cert.pem'),
     ca: fs.readFileSync(__dirname + '/chain.pem')
 }
-var httpsServer = require('https').createServer(credentials, app)
-var io = require('socket.io')(httpsServer)
+
+const env = process.env.NODE_ENV || 'dev';
+
+
+
+let server = require('http').createServer(app)
+if (env === 'production') {
+    server = require('https').createServer(credentials, app)
+}
+
+var io = require('socket.io')(server)
 
 var PORT = 8080;
 
@@ -59,6 +67,6 @@ io.on('connection', function (socket) {
 
 })
 
-httpsServer.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log(`Socket IO Server listening on port ${PORT}`)
 })

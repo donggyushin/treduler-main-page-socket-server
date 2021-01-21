@@ -12,7 +12,7 @@
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "nodemon": "^1.19.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node dist/MainPageSocketServer.js &",
